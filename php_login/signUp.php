@@ -15,7 +15,7 @@ if(!empty($_POST)) {
 	}
 	}
 
-  
+
 
 
 ?>
@@ -39,6 +39,17 @@ if(!empty($_POST)) {
         <span class="fontawesome-user"></span>
           <input type="text" name="user" id="user" maxlength="15" placeholder="Username">
 
+
+
+
+
+
+
+
+
+
+
+          
         <span class="fontawesome-user"></span>
           <input type="text" name="email" id="email" maxlength="255" placeholder="E-mail">
        
