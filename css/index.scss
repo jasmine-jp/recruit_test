@@ -1,7 +1,7 @@
 * {
   margin: 0; padding: 0;
 }
-$width: 640px; $mainmargin: 50px;
+$width: 375px; $mainmargin: 10px;
 
 body {
     background-color: rgb(56, 56, 56);
@@ -12,22 +12,41 @@ body {
         header {
             width: $width;
             background-color: lightsalmon;
-            position: fixed; padding: 10px 0; z-index: 10;
-            select {
-                font-size: 20px;
+            position: fixed; z-index: 10;
+            i {
+                padding: 10px 0;
+                font-size: 30px;
+                margin-right: 40px;
+                float: right;
+                &:hover {
+                    color: red;
+                    cursor: pointer;
+                }
+            }
+            form {
+                width: 150px;
+                position: fixed; z-index: 100;
+                left: 50%; margin-left: $width / 2 - 150px;
+                background-color: white;
+                opacity: 0.95;
+                select {
+                    &:first-child {
+                        margin-top: 20px;
+                    }
+                    margin-bottom: 75px;
+                    font-size: 20px;
+                }
             }
         }
         footer {
             width: $width;
             background-color: lightsalmon;
-            display: flex;
+            display: flex; align-items: center;
             position: fixed; bottom: 0; padding: 10px 0; z-index: 10;
             p {
+                text-align: center;
                 font-size: 20px;
-                padding: 0 65px;
-                &:nth-child(2) {
-                    padding:0 65px;
-                }
+                width: calc(100% / 3);
                 &:hover {
                     color: red;
                     cursor: pointer;
@@ -37,11 +56,11 @@ body {
         #main {
             overflow: auto;
             width: $width - 2 * $mainmargin;
-            padding: 75px 50px 25px;
+            padding: 60px $mainmargin 25px;
             .contents {
                 display: flex;
                 width: ($width - 3 * $mainmargin) / 2; height: 100px;
-                margin-bottom: 50px;
+                margin-bottom: $mainmargin;
                 background-color: lightblue;
                 &:first-child, &:nth-child(2n+1) {
                     float: left;
@@ -50,28 +69,30 @@ body {
                     float: right;
                     margin-left: $mainmargin;
                 }
+                &:last-child {
+                    margin-bottom: 70px;
+                }
                 &:hover {
                     cursor: pointer;
                     opacity: 0.8;
                 }
                 .content1 {
                     i {
-                        margin: 10px;
+                        margin: 5px;
                         color: rgb(56, 56, 56);
-                        font-size: 75px;
+                        font-size: 60px;
                     }
                 }
                 .detail {
                     .mode {
-                        font-size: 25px;
+                        margin-top: 10px;
+                        font-size: 20px;
                     }
                     .detailcontents {
                         display: flex;
+                        margin-top: 7px;
                         p {
                             font-size: 12px;
-                        }
-                        .content2 {
-                            padding: 0 10px 0;
                         }
                     }
                 }
