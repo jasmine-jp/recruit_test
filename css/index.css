@@ -131,7 +131,6 @@ body #container #main .contents .detail .detailcontents {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  margin-top: 7px;
 }
 
 body #container #main .contents .detail .detailcontents p {
