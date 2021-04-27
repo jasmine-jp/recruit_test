@@ -1,0 +1,111 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #383838;
+}
+
+body #container {
+  width: 640px;
+  min-height: 600px;
+  margin: 0 auto;
+  background-color: gray;
+}
+
+body #container header {
+  width: 640px;
+  background-color: lightsalmon;
+  position: fixed;
+  padding: 10px 0;
+  z-index: 10;
+}
+
+body #container header select {
+  font-size: 20px;
+}
+
+body #container footer {
+  width: 640px;
+  background-color: lightsalmon;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  padding: 10px 0;
+  z-index: 10;
+}
+
+body #container footer p {
+  font-size: 20px;
+  padding: 0 65px;
+}
+
+body #container footer p:nth-child(2) {
+  padding: 0 65px;
+}
+
+body #container footer p:hover {
+  color: red;
+  cursor: pointer;
+}
+
+body #container #main {
+  overflow: auto;
+  width: 540px;
+  padding: 75px 50px 25px;
+}
+
+body #container #main .contents {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 245px;
+  height: 100px;
+  margin-bottom: 50px;
+  background-color: lightblue;
+}
+
+body #container #main .contents:first-child, body #container #main .contents:nth-child(2n+1) {
+  float: left;
+}
+
+body #container #main .contents:nth-child(2n) {
+  float: right;
+  margin-left: 50px;
+}
+
+body #container #main .contents:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+body #container #main .contents .content1 i {
+  margin: 10px;
+  color: #383838;
+  font-size: 75px;
+}
+
+body #container #main .contents .detail .mode {
+  font-size: 25px;
+}
+
+body #container #main .contents .detail .detailcontents {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+body #container #main .contents .detail .detailcontents p {
+  font-size: 12px;
+}
+
+body #container #main .contents .detail .detailcontents .content2 {
+  padding: 0 10px 0;
+}
+/*# sourceMappingURL=index.css.map */
