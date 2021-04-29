@@ -6,7 +6,7 @@
     if ($_POST['user'] === '') {
       $error['user'] = 'blank';
     } 
-    if (strlen($_POST['user']) > 15) {
+    if (strlen($_POST['user']) > 30) {
       $error['user'] = 'length';
     }
 

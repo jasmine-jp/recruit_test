@@ -7,6 +7,10 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
   $members = $db->prepare('SELECT * FROM members WHERE id=?');
   $members->execute(array($_SESSION['id']));
   $member = $members->fetch();
+
+  $profiles = $db->prepare('SELECT * FROM profile WHERE id=?');
+  $profiles->execute(array($_SESSION['id']));
+  $profile = $profiles->fetch();
 } else {
   header('Location: login.php');
   exit();
@@ -23,5 +27,7 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
 <body>
   <h1><a href="make_profile.php">プロフィールを作成する</a></h1>
   <h1><?php  print(htmlspecialchars($member['name'], ENT_QUOTES)); ?></h1>
+  <h1><?php  print(htmlspecialchars($profile['message'], ENT_QUOTES)); ?></h1>
+
 </body>
 </html>
