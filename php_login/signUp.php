@@ -54,6 +54,7 @@
           sha1($_POST['password'])
         ));
 
+        // $_SESSION['join'] = $_POST;
         header('location: thanks.php');
         exit();
       }

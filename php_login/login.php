@@ -7,7 +7,6 @@ if ($_COOKIE['email'] !== '') {
   $email = $_COOKIE['email'];
 }
 
-
 if (!empty($_POST)) {
   $email = $_POST['email'];
   
@@ -20,6 +19,7 @@ if (!empty($_POST)) {
      $member = $login->fetch();
 
      if ($member) {
+        // sleep(2);
        $_SESSION['id'] = $member['id'];
        $_SESSION['time'] = time();
 
@@ -27,7 +27,7 @@ if (!empty($_POST)) {
         setcookie('email', $_POST['email'], time() +60*60*24*14);
       }
 
-       header('Location: ../src/index.html');
+       header('Location: ../src/index.php');
        exit();
      } else {
        $error['login'] = 'failed';
@@ -52,7 +52,7 @@ if (!empty($_POST)) {
       <dl>
         <dt>メールアドレス</dt>
         <dd>
-          <input type="text" name="email" size="35" maxlength="255" value="<?php echo htmlspecialchars($email, ENT_QUOTES); ?>" />
+          <input type="text" name="email" size="35" id="user" maxlength="255" value="<?php echo htmlspecialchars($email, ENT_QUOTES); ?>" />
           <?php if ($error['login'] === 'blank'): ?>
           <p class="error">＊メールアドレスとパスワードをご記入
           ください</p>

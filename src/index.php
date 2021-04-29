@@ -1,3 +1,17 @@
+<?php
+session_start();
+require('../db/dbconnect.php');
+ 
+if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
+  $_SESSION['time'] = time();
+  $members = $db->prepare('SELECT * FROM members WHERE id=?');
+  $members->execute(array($_SESSION['id']));
+  $member = $members->fetch();
+} else {
+  header('Location: login.php');
+  exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -11,6 +25,9 @@
     <script src="../js/index.js"></script>
 </head>
 <body>
+    <h1><?php  print(htmlspecialchars($member['name'], ENT_QUOTES)); ?></h1>
+    <h1><?php  print(htmlspecialchars($member['name'], ENT_QUOTES)); ?></h1>
+    <h1><?php  print(htmlspecialchars($member['name'], ENT_QUOTES)); ?></h1>
     <div id="container">
         <header>
             <i class="fas fa-bars"></i>
@@ -86,7 +103,7 @@
         <footer>
             <p>問い<br>合わせ</p>
             <p>募集<br>する</p>
-            <p>設定</p>
+            <p><a href="../profile/profile.php">設定</a></p>
         </footer>
     </div>
 </body>
