@@ -10,11 +10,6 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
 } else {
   header('Location: ../php_login/login');
   exit();
-
-
-
-
-  
 }
 // if(!empty($_POST)) {
 //   $profile = $db->prepare('INSERT INTO profile SET members_id=?, members_name=?, apex_id=?, profileImage=?, message=?, rank=?, platform=?, created=NOW()');
