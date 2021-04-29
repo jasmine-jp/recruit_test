@@ -10,6 +10,10 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
 } else {
   header('Location: ../php_login/login');
   exit();
+
+
+
+
   
 }
 // if(!empty($_POST)) {
