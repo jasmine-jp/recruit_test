@@ -2,12 +2,17 @@
 session_start();
 require('../db/dbconnect.php');
 
+$A = 0;
 
+// DBのmemberに入っているデータを取り出す
 if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
   $_SESSION['time'] = time();
   $members = $db->prepare('SELECT * FROM members WHERE id=?');
   $members->execute(array($_SESSION['id']));
   $member = $members->fetch();
+  $profiles = $db->prepare('SELECT * FROM profiles WHERE member_id=?');
+  $profiles->execute(array($_SESSION['id']));
+  $profile = $profiles->fetch();
 } else {
   header('Location: ../php_login');
   exit();
@@ -24,29 +29,70 @@ if (!empty($fileName)) {
   }
 }
 if (!($error['image'] === 'type')) {
-  $image = date('YmdHis') . $_FILES['image']['name'];
+  $image = date('YmdHis')  . $_FILES['image']['name'];
   move_uploaded_file($_FILES['image']['tmp_name'], '../member_picture/' . $image);
 }
 $_SESSION['join']['image']  = $image;
 // ----------------------
+// print($image);
+// データベースへの挿入、更新--------------------------
+if ($A == 0) {
+  $members = $db->prepare('SELECT COUNT(*) AS cnt FROM profiles WHERE member_id=?');
 
-// データベースへの挿入--------------------------
-if (!(empty($_POST['message']))) {
-  print($image);
-  // INSERT文を変数に格納
-  $sql = "INSERT INTO aaa (member_id, apex_id, name, profile_image, message, rank,platform, created) VALUES (:member_id, :apex_id,:name, :profile_image, :message, :rank, :platform, now())";
+  $members->execute(array($member['id']));
+  $record = $members->fetch();
+  if ($record['cnt'] > 0) {
+    // ポストの中身が空なら最新しない
+    if (!empty($_POST)) {
+      // apexIDの最新
+      if (!empty($_POST['apex_id'])) {
+        $stmt = $db->prepare('UPDATE profiles SET  apex_id = :apex_id WHERE member_id = :member_id ');
+        $stmt->execute(array(':apex_id' => $_POST['apex_id'], 'member_id' => $member['id']));
+      }
+      // imageの最新
+      if (!empty($_FILES['image']['name'])) {
+        print($profile['profile_image']);
+        $filename = $profile['profile_image'];
+        unlink($image_file);
+        
+        $stmt = $db->prepare('UPDATE profiles SET  profile_image = :profile_image  WHERE member_id = :member_id ');
+        $stmt->execute(array(':profile_image' => $image, 'member_id' => $member['id']));
+      }
+      // messageの最新
+      if (!empty($_POST['message'])) {
+        $stmt = $db->prepare('UPDATE profiles SET  message = :message WHERE member_id = :member_id ');
+        $stmt->execute(array(':message' => $_POST['message'], 'member_id' => $member['id']));
+      }
+      // ランクの最新
+      if (!empty($_POST['rank'])) {
+        $stmt = $db->prepare('UPDATE profiles SET  rank = :rank WHERE member_id = :member_id ');
+        $stmt->execute(array(':rank' => $_POST['rank'], 'member_id' => $member['id']));
+      }
+      // プラットフォームの最新
+      if (!empty($_POST['platform'])) {
+        $stmt = $db->prepare('UPDATE profiles SET  platform = :platform WHERE member_id = :member_id ');
+        $stmt->execute(array(':platform' => $_POST['platform'], 'member_id' => $member['id']));
+      }
+    } else {
+      $error['profile'] = 'empty';
+    }
+  } else {
+    // 最初のプロフィール設定
+    // INSERT文を変数に格納
+    $sql = "INSERT INTO profiles (member_id, apex_id, name, profile_image, message, rank,platform, created) VALUES (:member_id, :apex_id,:name, :profile_image, :message, :rank, :platform, now())";
 
-  // 挿入する値は空のまま、SQL実行の準備をする
-  $stmt = $db->prepare($sql);
+    // 挿入する値は空のまま、SQL実行の準備をする
+    $stmt = $db->prepare($sql);
 
-  // 挿入する値を配列に格納する
-  $params = array(':member_id' => $member['id'], ':apex_id' => $_POST['apex_id'], ':name' => $member['name'], ':profile_image' => $_FILES['image'], ':message' => $_POST['message'], ':rank' => $_POST['rank'], ':platform' => $_POST['platform']);
+    // 挿入する値を配列に格納する
+    $params = array(':member_id' => $member['id'], ':apex_id' => $_POST['apex_id'], ':name' => $member['name'], ':profile_image' => $_FILES['image']['name'], ':message' => $_POST['message'], ':rank' => $_POST['rank'], ':platform' => $_POST['platform']);
 
-  // 挿入する値が入った変数をexecuteにセットしてSQLを実行
-  $stmt->execute($params);
+    // 挿入する値が入った変数をexecuteにセットしてSQLを実行
+    $stmt->execute($params);
 
-  // 登録完了のメッセージ
-  echo '登録完了しました';
+    // 登録完了のメッセージ
+    echo '登録完了しました';
+  }
 }
 // --------------------
 
@@ -93,7 +139,6 @@ foreach ($platform_data as $platform_data_key => $platform_data_val) {
 
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
