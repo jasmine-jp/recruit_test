@@ -1,0 +1,49 @@
+
+
+.profile-box {
+  margin: 50px 20%;
+  width: 60%;
+  height: auto;
+  background-color: yellowgreen;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.profile-title {
+  width: 100%;
+  height: 70px;
+  background-color: green;
+  text-align: center;
+  line-height: 25px;
+}
+.image-box {
+  width: 200px;
+  height: 200px;
+  margin: 50px auto;
+  border: 3px white solid;
+  border-radius: 50%;
+}
+.profile-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.profile-name {
+  text-align: center;
+}
+.apexid-box, .message-box, .rank-box, .platform-box{
+  background-color: white;
+  border: red 2px solid;
+  display: inline-flex;
+  height: auto;
+  margin-bottom: 30px;
+}
+.apexid-box > p, .message-word , .rank-box > p, .platform-box > p{
+  line-height: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 30px;
+  margin-right: 30px;
+  word-break: normal;
+}
+

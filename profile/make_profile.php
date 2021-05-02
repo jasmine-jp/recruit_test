@@ -85,7 +85,7 @@ if ($A == 0) {
     $stmt = $db->prepare($sql);
 
     // 挿入する値を配列に格納する
-    $params = array(':member_id' => $member['id'], ':apex_id' => $_POST['apex_id'], ':name' => $member['name'], ':profile_image' => $_FILES['image']['name'], ':message' => $_POST['message'], ':rank' => $_POST['rank'], ':platform' => $_POST['platform']);
+    $params = array(':member_id' => $member['id'], ':apex_id' => $_POST['apex_id'], ':name' => $member['name'], ':profile_image' => $image, ':message' => $_POST['message'], ':rank' => $_POST['rank'], ':platform' => $_POST['platform']);
 
     // 挿入する値が入った変数をexecuteにセットしてSQLを実行
     $stmt->execute($params);
