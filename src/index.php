@@ -25,11 +25,11 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
     <script src="../js/index.js"></script>
 </head>
 <body>
-    <h1><?php  print(htmlspecialchars($member['name'], ENT_QUOTES)); ?></h1>
-    <h1><?php  print(htmlspecialchars($member['name'], ENT_QUOTES)); ?></h1>
-    <h1><?php  print(htmlspecialchars($member['name'], ENT_QUOTES)); ?></h1>
     <div id="container">
         <header>
+        <?php if (!(empty($member['name']))): ?>
+        <h1><?php  print(htmlspecialchars($member['name'], ENT_QUOTES)); ?></h1>
+        <?php endif; ?>
             <i class="fas fa-bars"></i>
             <form>
                 <select class="options">
@@ -79,6 +79,7 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
             </form>
         </header>
         <div id="main">
+            <!-- ここから個々のカード -->
             <div class="contents" id="0">
                 <div class=content1>
                     <i class="fas fa-user-circle"></i>
@@ -99,6 +100,7 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
                     </div>
                 </div>
             </div>
+            <!-- ここまで -->
         </div>
         <footer>
             <p>問い<br>合わせ</p>

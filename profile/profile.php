@@ -55,7 +55,9 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
   </div>
   <h1><a href="make_profile.php">プロフィールを作成する</a></h1>
   </div>
-
+<div>
+  <h1><a href="../src/index.php">ホームに戻る</a></h1>
+</div>
 
 </body>
 </html>

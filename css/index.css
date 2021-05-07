@@ -137,3 +137,7 @@ body #container #main .contents .detail .detailcontents p {
   font-size: 12px;
 }
 /*# sourceMappingURL=index.css.map */
+
+header {
+  display: flex;
+}
