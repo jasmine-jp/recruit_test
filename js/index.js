@@ -2,7 +2,7 @@ $(() => {
     target = "#0";
     $(target).hide();
     $("form").hide();
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 12; i++) {
         if (i == 0) {
             $(target).show();
         } else {

@@ -59,7 +59,7 @@ body {
             padding: 60px $mainmargin 25px;
             .contents {
                 display: flex;
-                width: ($width - 3 * $mainmargin) / 2; height: 100px;
+                width: ($width - 3 * $mainmargin) / 2; height: 150px;
                 margin-bottom: $mainmargin;
                 background-color: lightblue;
                 &:first-child, &:nth-child(2n+1) {
@@ -91,7 +91,7 @@ body {
                     .detailcontents {
                         display: flex;
                         p {
-                            font-size: 12px;
+                            font-size:  12px;
                         }
                     }
                 }

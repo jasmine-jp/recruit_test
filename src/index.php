@@ -2,15 +2,31 @@
 session_start();
 require('../db/dbconnect.php');
  
+// 値の取得とジアkん経過によるログイン画面への遷移
 if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
   $_SESSION['time'] = time();
   $members = $db->prepare('SELECT * FROM members WHERE id=?');
   $members->execute(array($_SESSION['id']));
   $member = $members->fetch();
+  $recruits = "SELECT * FROM recruit_card";
+  $recruit = $db->query($recruits);
 } else {
   header('Location: login.php');
   exit();
 }
+// -----------------------
+
+// 時間によりrecruit_cardのDBの削除（30分）
+if ($_SESSION['recruit_time'] + 1800 > time()) {
+
+} else {
+  $recruit_delete = "DELETE FROM recruit_card WHERE profile_name=:profile_name";
+  $R_D = $db->prepare($recruit_delete);
+  $recruit_param = array(':profile_name' =>$member['name'] );
+  $R_D->execute($recruit_param);
+  print("削除されました");
+}
+// ---------------------------
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -80,7 +96,30 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
         </header>
         <div id="main">
             <!-- ここから個々のカード -->
+            <!-- <?php foreach($recruit as $card): ?>
             <div class="contents" id="0">
+                <div class=content1>
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="detail">
+                    <p class="mode"><?php echo($card['profile_name']); ?></p>
+                    <div class="detailcontents">
+                    <div class="content2">
+                            <p>mode:<?php echo($card['mode']); ?></p>
+                            <p>PF:<?php echo($card['platform']); ?></p>
+                            <p>VC:<?php echo($card['vc']); ?></p>
+                            <p>PS:<?php echo($card['ps']); ?></p>
+                        </div>
+                        <div class="content3">
+                            <p>VC:PT</p>
+                            <p>PS:順位</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?> -->
+
+            <div class="contents" id="9">
                 <div class=content1>
                     <i class="fas fa-user-circle"></i>
                 </div>
@@ -99,12 +138,12 @@ if (isset($_SESSION['id']) && $_SESSION['time'] + 3600 > time()) {
                         </div>
                     </div>
                 </div>
-            </div>
+        </div>
             <!-- ここまで -->
         </div>
         <footer>
             <p>問い<br>合わせ</p>
-            <p>募集<br>する</p>
+            <p><a href="../recruitment/recruitment.php">募集<br>する</a></p>
             <p><a href="../profile/profile.php">設定</a></p>
         </footer>
     </div>
