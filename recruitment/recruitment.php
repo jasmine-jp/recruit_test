@@ -12,13 +12,17 @@ $profiles->execute(array($_SESSION['id']));
 $profile = $profiles->fetch();
 // --------------------------------
 
+print($member['name']);
+if(empty($profile)) {
+  print('プロフィール設定をしてください');
+}
 
 // DBに挿入-----------------変数名かえる
 if (isset($_POST['registration'])) {
-  $aaa = $db->prepare('SELECT COUNT(*) AS cnt FROM recruit_card WHERE profile_name=?');
+  $check_recruit = $db->prepare('SELECT COUNT(*) AS cnt FROM recruit_card WHERE profile_name=?');
     
-  $aaa->execute(array($member['name']));
-  $record = $aaa->fetch();
+  $check_recruit->execute(array($member['name']));
+  $record = $check_recruit->fetch();
    print($member['name']);
   if($record['cnt'] > 0) {
     print("すでに登録されています");
@@ -26,7 +30,7 @@ if (isset($_POST['registration'])) {
     $_SESSION['recruit_time'] = time();
 
 
-      print("A");
+//  DBに登録
       $recruit = $db->prepare('INSERT INTO recruit_card SET profile_name=?, members_id=?,  member_image=?, mode=?, platform=?, vc=?, ps=?, created=NOW()');
       $recruit->execute(array(
         $member['name'],
@@ -37,6 +41,7 @@ if (isset($_POST['registration'])) {
         $_POST['vc'],
         $_POST['ps']
       ));
+      print("登録されました。");
   }
 }
 // --------------------------------
@@ -76,6 +81,10 @@ $ps_data = [
   '漁夫' => '漁夫',
   'キル' => 'キル'
 ];
+$recruit_people_data = [
+  '1' => '1',
+  '2' => '2'
+];
 foreach ($mode_data as $mode_data_key => $mode_data_val) {
   $mode_data .= "<option value='" . $mode_data_key;
   $mode_data .= "'>" . $mode_data_val . "</option>";
@@ -91,6 +100,10 @@ foreach ($vc_data as $vc_data_key => $vc_data_val) {
 foreach ($ps_data as $ps_data_key => $ps_data_val) {
   $ps_data .= "<option value='" . $ps_data_key;
   $ps_data .= "'>" . $ps_data_val . "</option>";
+}
+foreach ($recruit_people_data as $recruit_people_data_key => $recruit_people_data_val) {
+  $recruit_people_data .= "<option value='" . $recruit_people_data_key;
+  $recruit_people_data .= "'>" . $recruit_people_data_val . "</option>";
 }
 // --------------------------------
 
@@ -129,6 +142,10 @@ PS（どのようなプレイスタイルか）・・・playstyle
   <p>プレイスタイルを選択してください</p>
     <select name='ps'>
       <?php echo $ps_data; ?>
+    </select>
+  <p>募集人数を選択してください</p>
+    <select name='people'>
+      <?php echo $recruit_people_data; ?>
     </select>
   <input type="submit" value="送信" name="registration">
   </form>

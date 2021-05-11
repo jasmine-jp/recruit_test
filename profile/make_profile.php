@@ -57,6 +57,8 @@ if ($A == 0) {
         
         $stmt = $db->prepare('UPDATE profiles SET  profile_image = :profile_image  WHERE member_id = :member_id ');
         $stmt->execute(array(':profile_image' => $image, 'member_id' => $member['id']));
+        $recruit_card = $db->prepare('UPDATE recruit_card SET member_image = :member_image WHERE members_id = :members_id');
+        $recruit_card->execute(array(':member_image' => $image, 'members_id' => $member['id']));
       }
       // messageの最新
       if (!empty($_POST['message'])) {
