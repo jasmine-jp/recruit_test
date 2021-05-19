@@ -24,6 +24,9 @@
 //         }
 //     });
 // });
-
+document.getElementById("0").onclick = function() {
+  echo("A");
+};
+echo("A");
 
 
